@@ -30,6 +30,7 @@ function NewsPage() {
         // <h2 key={aPeaceOfNews.id}>{aPeaceOfNews.title}</h2>
         <PeaceOfNews
           key={aPeaceOfNews.id}
+          id={aPeaceOfNews.id}
           title={aPeaceOfNews.title}
           rating={aPeaceOfNews.points}
           nickname={aPeaceOfNews.user}
