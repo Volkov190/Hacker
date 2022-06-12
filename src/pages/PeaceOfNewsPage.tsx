@@ -1,7 +1,34 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import dateCalc from '../functions/dateCalc';
 import FeedItem from '../interfaces/FeedItem';
+
+const Wrapper = styled.div`
+  background-color: #e8f4ff;
+  border-radius: 30px;
+  padding: 20px;
+  & .title {
+    margin: 0;
+    color: #576cd4;
+    margin-bottom: 20px;
+  }
+
+  & a {
+    color: #2590f5;
+    text-decoration: none;
+  }
+
+  & .content {
+    color: #3d3d3d;
+    margin-bottom: 10px;
+  }
+
+  & .time {
+    margin-top: 20px;
+  }
+`;
 
 export const PeaceOfNewsPage = () => {
   const navigate = useNavigate();
@@ -18,16 +45,15 @@ export const PeaceOfNewsPage = () => {
   }, [id]);
   let dateStr = '';
   if (peaceOfNews) {
-    const date = new Date(peaceOfNews?.time * 1000);
-    dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    dateStr = dateCalc(peaceOfNews?.time);
   }
   return (
-    <>
-      <h1>{peaceOfNews?.title}</h1>
+    <Wrapper>
+      <h1 className="title">{peaceOfNews?.title}</h1>
       <a href={peaceOfNews?.url}>{peaceOfNews?.url}</a>
-      <div>{dateStr}</div>
-      <div>Автор: {peaceOfNews?.user}</div>
-      <div>{peaceOfNews?.comments_count} комментариев</div>
-    </>
+      <div className="time content">{dateStr}</div>
+      <div className="content">Автор: {peaceOfNews?.user}</div>
+      <div className="content">{peaceOfNews?.comments_count} комментариев</div>
+    </Wrapper>
   );
 };

@@ -3,4 +3,5 @@ export default interface aPeaceOfNews {
   title: string;
   rating: number | null | undefined;
   nickname: string | null | undefined;
+  date: number;
 }

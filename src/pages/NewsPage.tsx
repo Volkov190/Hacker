@@ -4,6 +4,24 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { addNewsAction, selectNews, selectNewsCount } from '../slices/newsSlice';
 import { AppThunk } from '../app/store';
 import { PeaceOfNews } from '../components/PeaceOfNews';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  padding: 20px;
+  & .title {
+    margin-left: 30px;
+    margin-top: 0;
+    color: #576cd4;
+  }
+
+  & .peaceOfNews {
+    margin-bottom: 40px;
+  }
+
+  & .peaceOfNews:last-of-type {
+    margin-bottom: 0;
+  }
+`;
 
 function getNewsPart(pageNum: number): AppThunk {
   return (dispatch) => {
@@ -24,19 +42,20 @@ function NewsPage() {
   }, [newsCount]);
 
   return (
-    <>
-      <h1>News</h1>
+    <Wrapper>
+      <h1 className="title">News</h1>
       {news.map((aPeaceOfNews) => (
-        // <h2 key={aPeaceOfNews.id}>{aPeaceOfNews.title}</h2>
         <PeaceOfNews
+          className={'peaceOfNews'}
           key={aPeaceOfNews.id}
           id={aPeaceOfNews.id}
           title={aPeaceOfNews.title}
           rating={aPeaceOfNews.points}
           nickname={aPeaceOfNews.user}
+          date={aPeaceOfNews.time}
         />
       ))}
-    </>
+    </Wrapper>
   );
 }
 
