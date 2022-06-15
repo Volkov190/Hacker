@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import aPeaceOfNews from '../interfaces/aPeaceOfNews';
 import styled from 'styled-components';
 import dateCalc from '../functions/dateCalc';
+import { Frame } from './Frame';
 
-const Wrapper = styled.div`
-  padding: 10px;
+const Wrapper = styled(Frame)`
   height: 120px;
-  border-radius: 30px;
-  background-color: #e8f4ff;
   & a {
     color: #2590f5;
     text-decoration: none;
