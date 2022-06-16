@@ -33,11 +33,16 @@ export const newsSlice = createSlice({
         return b.time - a.time;
       });
     },
+
+    deleteNewsAction: (state) => {
+      state.count = 0;
+      state.news = [];
+    },
   },
 });
 
 export const selectNews = (state: RootState) => state.news.news;
 export const selectNewsCount = (state: RootState) => state.news.count;
-export const { addNewsAction } = newsSlice.actions;
+export const { addNewsAction, deleteNewsAction } = newsSlice.actions;
 
 export default newsSlice.reducer;

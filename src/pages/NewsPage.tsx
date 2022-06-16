@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { addNewsAction, selectNews, selectNewsCount } from '../slices/newsSlice';
+import { addNewsAction, deleteNewsAction, selectNews, selectNewsCount } from '../slices/newsSlice';
 import { AppThunk } from '../app/store';
 import { PeaceOfNews } from '../components/PeaceOfNews';
 import styled from 'styled-components';
+import { UpdateButton } from '../components/UpdateButton';
 
 const Wrapper = styled.div`
   padding: 20px;
   & .title {
-    margin-left: 30px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 0;
     color: #576cd4;
   }
 
   & .peaceOfNews {
     margin-bottom: 40px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   & .peaceOfNews:last-of-type {
     margin-bottom: 0;
+  }
+
+  & .updateBtn {
+    right: 50px;
+    top: 35px;
   }
 `;
 
@@ -37,13 +48,25 @@ function NewsPage() {
   const news = useAppSelector(selectNews);
   const [pageNum, setPageNum] = useState(1);
   useEffect(() => {
-    if (newsCount < 100) dispatch(getNewsPart(pageNum));
-    setPageNum(pageNum + 1);
+    let timeout: NodeJS.Timeout;
+    if (newsCount < 100) {
+      dispatch(getNewsPart(pageNum));
+      setPageNum(pageNum + 1);
+    } else {
+      setPageNum(1);
+      timeout = setTimeout(() => {
+        dispatch(deleteNewsAction());
+      }, 60000);
+    }
+
+    return () => clearInterval(timeout);
   }, [newsCount]);
 
   return (
     <Wrapper>
-      <h1 className="title">News</h1>
+      <div className="title">
+        <h1>News</h1>
+      </div>
       {news.map((aPeaceOfNews) => (
         <PeaceOfNews
           className={'peaceOfNews'}
@@ -55,6 +78,15 @@ function NewsPage() {
           date={aPeaceOfNews.time}
         />
       ))}
+      <UpdateButton
+        className="updateBtn"
+        onClick={() => {
+          if (newsCount > 0) {
+            dispatch(deleteNewsAction());
+            setPageNum(1);
+          }
+        }}
+      />
     </Wrapper>
   );
 }
