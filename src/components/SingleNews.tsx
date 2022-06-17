@@ -19,10 +19,9 @@ const Wrapper = styled(Frame)`
   }
 `;
 
-export const SingleNews = (props: singleNews) => {
+export const SingleNews = (props: singleNews & { className?: string }) => {
   return (
     <Wrapper>
-      <h1 className="title">{props.title}</h1>
       <a href={props.url}>{props.url}</a>
       <div className="time content">{props.dateStr}</div>
       <div className="content">
