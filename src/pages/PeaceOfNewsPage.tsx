@@ -6,6 +6,7 @@ import dateCalc from '../functions/dateCalc';
 import Item from '../interfaces/Item';
 import { Comment } from '../components/Comment';
 import styled from 'styled-components';
+import { UpdateButton } from '../components/UpdateButton';
 
 const Wrapper = styled.div`
   width: 70%;
@@ -17,6 +18,11 @@ const Wrapper = styled.div`
     padding-right: 20px;
     margin-top: 0;
     color: #576cd4;
+  }
+
+  & .updateBtn {
+    top: 35px;
+    right: 50px;
   }
 `;
 
@@ -36,7 +42,20 @@ export const PeaceOfNewsPage = () => {
         } else goNotFound();
       });
     }
+
+    const interval = setInterval(() => {
+      axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
+        if (resp.data !== null) {
+          setPeaceOfNews(resp.data);
+        } else goNotFound();
+      });
+    }, 60000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [newsId]);
+
   let dateStr = '';
   if (peaceOfNews) {
     dateStr = dateCalc(peaceOfNews?.time);
@@ -57,6 +76,16 @@ export const PeaceOfNewsPage = () => {
         {peaceOfNews.comments.map((comment) => {
           return <Comment key={comment.id} id={comment.id} level={0} />;
         })}
+        <UpdateButton
+          className="updateBtn"
+          onClick={() => {
+            axios(`https://api.hnpwa.com/v0/item/${newsId}.json`).then((resp) => {
+              if (resp.data !== null) {
+                setPeaceOfNews(resp.data);
+              } else goNotFound();
+            });
+          }}
+        />
       </Wrapper>
     );
   } else {
