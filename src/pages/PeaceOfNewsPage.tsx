@@ -7,6 +7,7 @@ import Item from '../interfaces/Item';
 import { Comment } from '../components/Comment';
 import styled from 'styled-components';
 import { UpdateButton } from '../components/UpdateButton';
+import { GoNewsButton } from '../components/GoNewsButton';
 
 const Wrapper = styled.div`
   width: 70%;
@@ -24,6 +25,11 @@ const Wrapper = styled.div`
     top: 35px;
     right: 50px;
   }
+
+  & .goNewsBtn {
+    top: 35px;
+    right: 125px;
+  }
 `;
 
 export const PeaceOfNewsPage = () => {
@@ -39,6 +45,7 @@ export const PeaceOfNewsPage = () => {
       axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
         if (resp.data !== null) {
           setPeaceOfNews(resp.data);
+          console.log(resp.data);
         } else goNotFound();
       });
     }
@@ -86,6 +93,7 @@ export const PeaceOfNewsPage = () => {
             });
           }}
         />
+        <GoNewsButton className="goNewsBtn" />
       </Wrapper>
     );
   } else {
