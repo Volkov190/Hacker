@@ -7,13 +7,11 @@ import { Frame } from './Frame';
 
 const Wrapper = styled(Frame)`
   height: 120px;
-  & a {
-    color: #2590f5;
-    text-decoration: none;
+  color: #2590f5;
+  text-decoration: none;
 
-    & .info {
-      color: #3d3d3d;
-    }
+  & .info {
+    color: #3d3d3d;
   }
 `;
 
@@ -23,14 +21,18 @@ interface NeedClassName {
 
 const PeaceOfNews = (props: aPeaceOfNews & NeedClassName) => {
   return (
-    <Wrapper className={props.className}>
-      <Link to={`/news/${props.id}`}>
+    <Link
+      to={`/news/${props.id}`}
+      style={{ textDecoration: 'none', display: 'block' }}
+      className={props.className}
+    >
+      <Wrapper>
         <h2>{props.title}</h2>
         <div className="info">
           {props.rating} points | {props.nickname} | {dateCalc(props.date)}
         </div>
-      </Link>
-    </Wrapper>
+      </Wrapper>
+    </Link>
   );
 };
 

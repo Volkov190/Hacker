@@ -22,6 +22,7 @@ const Wrapper = styled.div`
     width: 70%;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 30px;
   }
 
   & .peaceOfNews:last-of-type {
