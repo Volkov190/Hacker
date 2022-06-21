@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   padding: 20px;
   & .title {
     width: 70%;
+    padding-left: 40px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
