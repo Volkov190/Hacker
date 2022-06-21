@@ -45,7 +45,6 @@ export const PeaceOfNewsPage = () => {
       axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
         if (resp.data !== null) {
           setPeaceOfNews(resp.data);
-          console.log(resp.data);
         } else goNotFound();
       });
     }
