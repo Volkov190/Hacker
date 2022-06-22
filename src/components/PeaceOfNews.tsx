@@ -10,6 +10,10 @@ const Wrapper = styled(Frame)`
   color: #2590f5;
   text-decoration: none;
 
+  @media (max-width: 850px) {
+    font-size: 10pt;
+  }
+
   & .info {
     color: #3d3d3d;
   }

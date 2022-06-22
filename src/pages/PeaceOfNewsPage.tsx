@@ -24,11 +24,19 @@ const Wrapper = styled.div`
   & .updateBtn {
     top: 35px;
     right: 50px;
+
+    @media (max-width: 426px) {
+      right: 10px;
+    }
   }
 
   & .goNewsBtn {
     top: 35px;
     right: 125px;
+
+    @media (max-width: 426px) {
+      left: 10px;
+    }
   }
 `;
 

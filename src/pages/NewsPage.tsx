@@ -9,6 +9,11 @@ import { UpdateButton } from '../components/UpdateButton';
 
 const Wrapper = styled.div`
   padding: 20px;
+
+  @media (max-width: 425px) {
+    padding: 0;
+  }
+
   & .title {
     width: 70%;
     padding-left: 40px;
@@ -24,6 +29,10 @@ const Wrapper = styled.div`
     margin-left: auto;
     margin-right: auto;
     border-radius: 30px;
+
+    @media (max-width: 850px) {
+      width: 100%;
+    }
   }
 
   & .peaceOfNews:last-of-type {
