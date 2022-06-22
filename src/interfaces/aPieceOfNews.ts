@@ -1,4 +1,4 @@
-export default interface aPeaceOfNews {
+export default interface aPieceOfNews {
   id: number;
   title: string;
   rating: number | null | undefined;

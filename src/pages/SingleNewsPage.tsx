@@ -40,9 +40,9 @@ const Wrapper = styled.div`
   }
 `;
 
-export const PeaceOfNewsPage = () => {
+export const SingleNewsPage = () => {
   const navigate = useNavigate();
-  const [peaceOfNews, setPeaceOfNews] = useState<Item>();
+  const [pieceOfNews, setPieceOfNews] = useState<Item>();
   const { newsId } = useParams();
   const goNotFound = () => navigate('/notfound');
   useEffect(() => {
@@ -52,7 +52,7 @@ export const PeaceOfNewsPage = () => {
     } else {
       axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
         if (resp.data !== null) {
-          setPeaceOfNews(resp.data);
+          setPieceOfNews(resp.data);
         } else goNotFound();
       });
     }
@@ -60,7 +60,7 @@ export const PeaceOfNewsPage = () => {
     const interval = setInterval(() => {
       axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
         if (resp.data !== null) {
-          setPeaceOfNews(resp.data);
+          setPieceOfNews(resp.data);
         } else goNotFound();
       });
     }, 60000);
@@ -71,23 +71,23 @@ export const PeaceOfNewsPage = () => {
   }, [newsId]);
 
   let dateStr = '';
-  if (peaceOfNews) {
-    dateStr = dateCalc(peaceOfNews?.time);
+  if (pieceOfNews) {
+    dateStr = dateCalc(pieceOfNews?.time);
   }
-  if (peaceOfNews) {
+  if (pieceOfNews) {
     return (
       <Wrapper>
         <div className="title">
-          <h1>{peaceOfNews.title}</h1>
+          <h1>{pieceOfNews.title}</h1>
         </div>
         <SingleNews
           className="singleNews"
-          url={peaceOfNews.url}
+          url={pieceOfNews.url}
           dateStr={dateStr}
-          comments_count={peaceOfNews.comments_count}
-          author={peaceOfNews.user}
+          comments_count={pieceOfNews.comments_count}
+          author={pieceOfNews.user}
         />
-        {peaceOfNews.comments.map((comment) => {
+        {pieceOfNews.comments.map((comment) => {
           return <Comment key={comment.id} id={comment.id} level={0} />;
         })}
         <UpdateButton
@@ -95,7 +95,7 @@ export const PeaceOfNewsPage = () => {
           onClick={() => {
             axios(`https://api.hnpwa.com/v0/item/${newsId}.json`).then((resp) => {
               if (resp.data !== null) {
-                setPeaceOfNews(resp.data);
+                setPieceOfNews(resp.data);
               } else goNotFound();
             });
           }}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { addNewsAction, deleteNewsAction, selectNews, selectNewsCount } from '../slices/newsSlice';
 import { AppThunk } from '../app/store';
-import { PeaceOfNews } from '../components/PeaceOfNews';
+import { PieceOfNews } from '../components/PieceOfNews';
 import styled from 'styled-components';
 import { UpdateButton } from '../components/UpdateButton';
 
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     color: #576cd4;
   }
 
-  & .peaceOfNews {
+  & .pieceOfNews {
     margin-bottom: 40px;
     width: 70%;
     margin-left: auto;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
     }
   }
 
-  & .peaceOfNews:last-of-type {
+  & .pieceOfNews:last-of-type {
     margin-bottom: 0;
   }
 
@@ -78,15 +78,15 @@ function NewsPage() {
       <div className="title">
         <h1>News</h1>
       </div>
-      {news.map((aPeaceOfNews) => (
-        <PeaceOfNews
-          className={'peaceOfNews'}
-          key={aPeaceOfNews.id}
-          id={aPeaceOfNews.id}
-          title={aPeaceOfNews.title}
-          rating={aPeaceOfNews.points}
-          nickname={aPeaceOfNews.user}
-          date={aPeaceOfNews.time}
+      {news.map((aPieceOfNews) => (
+        <PieceOfNews
+          className={'pieceOfNews'}
+          key={aPieceOfNews.id}
+          id={aPieceOfNews.id}
+          title={aPieceOfNews.title}
+          rating={aPieceOfNews.points}
+          nickname={aPieceOfNews.user}
+          date={aPieceOfNews.time}
         />
       ))}
       <UpdateButton

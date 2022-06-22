@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import aPeaceOfNews from '../interfaces/aPeaceOfNews';
+import aPieceOfNews from '../interfaces/aPieceOfNews';
 import styled from 'styled-components';
 import dateCalc from '../functions/dateCalc';
 import { Frame } from './Frame';
@@ -23,7 +23,7 @@ interface NeedClassName {
   className: string;
 }
 
-const PeaceOfNews = (props: aPeaceOfNews & NeedClassName) => {
+const PieceOfNews = (props: aPieceOfNews & NeedClassName) => {
   return (
     <Link
       to={`/news/${props.id}`}
@@ -40,4 +40,4 @@ const PeaceOfNews = (props: aPeaceOfNews & NeedClassName) => {
   );
 };
 
-export { PeaceOfNews };
+export { PieceOfNews };
