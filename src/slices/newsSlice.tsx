@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import FeedItem from '../interfaces/FeedItem';
+import StoredNews from '../interfaces/StoredNews';
 
 interface News {
   count: number;
-  news: Array<FeedItem>;
+  news: StoredNews[];
 }
 
 const initialState: News = {
@@ -18,7 +18,7 @@ export const newsSlice = createSlice({
   name: 'news',
   initialState,
   reducers: {
-    addNewsAction: (state, action: PayloadAction<Array<FeedItem>>) => {
+    addNewsAction: (state, action: PayloadAction<StoredNews[]>) => {
       if (state.count + action.payload.length <= maxNewsNeed) {
         state.news = state.news.concat(action.payload);
         state.count = state.news.length;

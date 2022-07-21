@@ -1,4 +1,4 @@
-export default interface singleNews {
+export default interface NewsOnSeparatePage {
   url?: string;
   dateStr: string;
   author: string | null;

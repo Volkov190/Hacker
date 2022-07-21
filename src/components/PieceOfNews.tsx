@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import aPieceOfNews from '../interfaces/aPieceOfNews';
+import PieceOfNewsMainInfo from '../interfaces/PieceOfNewsMainInfo';
 import styled from 'styled-components';
 import dateCalc from '../functions/dateCalc';
 import { Frame } from './Frame';
@@ -23,7 +23,7 @@ interface NeedClassName {
   className: string;
 }
 
-const PieceOfNews = (props: aPieceOfNews & NeedClassName) => {
+const PieceOfNews = (props: PieceOfNewsMainInfo & NeedClassName) => {
   return (
     <Link
       to={`/news/${props.id}`}

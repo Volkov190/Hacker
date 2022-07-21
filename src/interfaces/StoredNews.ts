@@ -1,4 +1,4 @@
-export default interface FeedItem {
+export default interface StoredNews {
   id: number;
   title: string;
   points?: number | null;

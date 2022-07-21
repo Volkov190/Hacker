@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import singleNews from '../interfaces/singleNews';
+import NewsOnSeparatePage from '../interfaces/NewsOnSeparatePage';
 import { Frame } from './Frame';
 
 const Wrapper = styled(Frame)`
@@ -19,7 +19,7 @@ const Wrapper = styled(Frame)`
   }
 `;
 
-export const SingleNews = (props: singleNews & { className?: string }) => {
+export const SingleNews = (props: NewsOnSeparatePage & { className?: string }) => {
   return (
     <Wrapper>
       <a href={props.url}>{props.url}</a>

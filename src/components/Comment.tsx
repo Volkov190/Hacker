@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import IComment from '../interfaces/IComment';
-import Item from '../interfaces/Item';
+// import Comment from '../interfaces/Comment';
+import NewsOrComment from '../interfaces/NewsOrComment';
 import { Frame } from './Frame';
 
 const Wrapper = styled(Frame)<{ level: number }>`
@@ -15,11 +15,11 @@ const Wrapper = styled(Frame)<{ level: number }>`
   }
 `;
 
-export const Comment = (props: IComment) => {
-  const [comment, setComment] = useState<Item>();
+export const Comment = (props: { commentId: number; commentLevel: number }) => {
+  const [comment, setComment] = useState<NewsOrComment>();
   const [showAns, setShowAns] = useState(false);
   useEffect(() => {
-    axios(`https://api.hnpwa.com/v0/item/${props.id}.json`).then((resp) => {
+    axios(`https://api.hnpwa.com/v0/item/${props.commentId}.json`).then((resp) => {
       if (resp.data) {
         setComment(resp.data);
       }
@@ -32,7 +32,7 @@ export const Comment = (props: IComment) => {
     <>
       <Wrapper
         className="commentWrapper"
-        level={props.level}
+        level={props.commentLevel}
         onClick={() => {
           setShowAns(!showAns);
         }}
@@ -45,7 +45,9 @@ export const Comment = (props: IComment) => {
       </Wrapper>
       {showAns &&
         comment.comments.map((comm) => {
-          return <Comment key={comm.id} id={comm.id} level={props.level + 1} />;
+          return (
+            <Comment key={comm.id} commentId={comm.id} commentLevel={props.commentLevel + 1} />
+          );
         })}
     </>
   );

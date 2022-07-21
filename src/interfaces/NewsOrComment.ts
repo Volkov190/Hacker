@@ -1,4 +1,4 @@
-export default interface Item {
+export default interface NewsOrComment {
   id: number;
   title: string;
   points: number | null;
@@ -11,7 +11,7 @@ export default interface Item {
   type: string;
   url?: string;
   domain?: string;
-  comments: Item[]; // Comments are items too
+  comments: NewsOrComment[];
   level: number;
   comments_count: number;
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SingleNews } from '../components/SingleNews';
 import dateCalc from '../functions/dateCalc';
-import Item from '../interfaces/Item';
+import NewsOrComment from '../interfaces/NewsOrComment';
 import { Comment } from '../components/Comment';
 import styled from 'styled-components';
 import { UpdateButton } from '../components/UpdateButton';
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
 
 export const SingleNewsPage = () => {
   const navigate = useNavigate();
-  const [pieceOfNews, setPieceOfNews] = useState<Item>();
+  const [pieceOfNews, setPieceOfNews] = useState<NewsOrComment>();
   const { newsId } = useParams();
   const goNotFound = () => navigate('/notfound');
   useEffect(() => {
@@ -86,7 +86,7 @@ export const SingleNewsPage = () => {
           author={pieceOfNews.user}
         />
         {pieceOfNews.comments.map((comment) => {
-          return <Comment key={comment.id} id={comment.id} level={0} />;
+          return <Comment key={comment.id} commentId={comment.id} commentLevel={0} />;
         })}
         <UpdateButton
           className="updateBtn"
