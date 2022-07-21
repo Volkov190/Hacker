@@ -39,7 +39,7 @@ export const Comment = (props: { commentId: number; commentLevel: number }) => {
         <p>
           <b>{comment.user}</b> | {comment.time_ago}
         </p>
-        <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}></div>
+        <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }} />
         <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
       </Wrapper>
       {isAnswerVisible &&

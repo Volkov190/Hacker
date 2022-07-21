@@ -18,10 +18,10 @@ function App() {
   return (
     <Wrapper>
       <Routes>
-        <Route path="/" element={<Navigate to="/news" replace />}></Route>
-        <Route path="/news" element={<NewsPage />}></Route>
-        <Route path="/news/:newsId" element={<SingleNewsPage />}></Route>
-        <Route path="*" element={<NotFoundPage />}></Route>
+        <Route path="/" element={<Navigate to="/news" replace />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:newsId" element={<SingleNewsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Wrapper>
   );
