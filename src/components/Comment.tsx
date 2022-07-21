@@ -27,7 +27,6 @@ export const Comment = (props: IComment) => {
   }, []);
 
   if (comment) {
-    // console.log(comment);
     return (
       <>
         <Wrapper
