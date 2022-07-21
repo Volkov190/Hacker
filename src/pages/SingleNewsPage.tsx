@@ -68,40 +68,37 @@ export const SingleNewsPage = () => {
     };
   }, [newsId]);
 
+  if (!pieceOfNews) return null;
+
   let dateStr = '';
-  if (pieceOfNews) {
-    dateStr = dateCalc(pieceOfNews?.time);
-  }
-  if (pieceOfNews) {
-    return (
-      <Wrapper>
-        <div className="title">
-          <h1>{pieceOfNews.title}</h1>
-        </div>
-        <SingleNews
-          className="singleNews"
-          url={pieceOfNews.url}
-          dateStr={dateStr}
-          comments_count={pieceOfNews.comments_count}
-          author={pieceOfNews.user}
-        />
-        {pieceOfNews.comments.map((comment) => {
-          return <Comment key={comment.id} commentId={comment.id} commentLevel={0} />;
-        })}
-        <UpdateButton
-          className="updateBtn"
-          onClick={() => {
-            axios(`https://api.hnpwa.com/v0/item/${newsId}.json`).then((resp) => {
-              if (resp.data !== null) {
-                setPieceOfNews(resp.data);
-              } else goNotFound();
-            });
-          }}
-        />
-        <GoNewsButton className="goNewsBtn" />
-      </Wrapper>
-    );
-  } else {
-    return <></>;
-  }
+  dateStr = dateCalc(pieceOfNews?.time);
+
+  return (
+    <Wrapper>
+      <div className="title">
+        <h1>{pieceOfNews.title}</h1>
+      </div>
+      <SingleNews
+        className="singleNews"
+        url={pieceOfNews.url}
+        dateStr={dateStr}
+        comments_count={pieceOfNews.comments_count}
+        author={pieceOfNews.user}
+      />
+      {pieceOfNews.comments.map((comment) => {
+        return <Comment key={comment.id} commentId={comment.id} commentLevel={0} />;
+      })}
+      <UpdateButton
+        className="updateBtn"
+        onClick={() => {
+          axios(`https://api.hnpwa.com/v0/item/${newsId}.json`).then((resp) => {
+            if (resp.data !== null) {
+              setPieceOfNews(resp.data);
+            } else goNotFound();
+          });
+        }}
+      />
+      <GoNewsButton className="goNewsBtn" />
+    </Wrapper>
+  );
 };
