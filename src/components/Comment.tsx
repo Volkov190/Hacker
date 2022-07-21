@@ -16,7 +16,7 @@ const Wrapper = styled(Frame)<{ level: number }>`
 
 export const Comment = (props: { commentId: number; commentLevel: number }) => {
   const [comment, setComment] = useState<NewsOrComment>();
-  const [showAns, setShowAns] = useState(false);
+  const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   useEffect(() => {
     axios(`https://api.hnpwa.com/v0/item/${props.commentId}.json`).then((resp) => {
       if (resp.data) {
@@ -33,7 +33,7 @@ export const Comment = (props: { commentId: number; commentLevel: number }) => {
         className="commentWrapper"
         level={props.commentLevel}
         onClick={() => {
-          setShowAns(!showAns);
+          setIsAnswerVisible(!isAnswerVisible);
         }}
       >
         <p>
@@ -42,10 +42,10 @@ export const Comment = (props: { commentId: number; commentLevel: number }) => {
         <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}></div>
         <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
       </Wrapper>
-      {showAns &&
-        comment.comments.map((comm) => {
+      {isAnswerVisible &&
+        comment.comments.map((answer) => {
           return (
-            <Comment key={comm.id} commentId={comm.id} commentLevel={props.commentLevel + 1} />
+            <Comment key={answer.id} commentId={answer.id} commentLevel={props.commentLevel + 1} />
           );
         })}
     </>
