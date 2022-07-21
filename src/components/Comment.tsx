@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import Comment from '../interfaces/Comment';
 import NewsOrComment from '../interfaces/NewsOrComment';
 import { Frame } from './Frame';
 
