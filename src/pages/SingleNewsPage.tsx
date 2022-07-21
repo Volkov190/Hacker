@@ -47,15 +47,13 @@ export const SingleNewsPage = () => {
   const goNotFound = () => navigate('/notfound');
   useEffect(() => {
     const id = parseInt(newsId!);
-    if (isNaN(id)) {
-      goNotFound();
-    } else {
-      axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
-        if (resp.data !== null) {
-          setPieceOfNews(resp.data);
-        } else goNotFound();
-      });
-    }
+    if (isNaN(id)) return goNotFound();
+
+    axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
+      if (resp.data !== null) {
+        setPieceOfNews(resp.data);
+      } else goNotFound();
+    });
 
     const interval = setInterval(() => {
       axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {

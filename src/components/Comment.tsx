@@ -26,27 +26,27 @@ export const Comment = (props: IComment) => {
     });
   }, []);
 
-  if (comment) {
-    return (
-      <>
-        <Wrapper
-          className="commentWrapper"
-          level={props.level}
-          onClick={() => {
-            setShowAns(!showAns);
-          }}
-        >
-          <p>
-            <b>{comment.user}</b> | {comment.time_ago}
-          </p>
-          <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}></div>
-          <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
-        </Wrapper>
-        {showAns &&
-          comment.comments.map((comm) => {
-            return <Comment key={comm.id} id={comm.id} level={props.level + 1} />;
-          })}
-      </>
-    );
-  } else return <></>;
+  if (!comment) return null;
+
+  return (
+    <>
+      <Wrapper
+        className="commentWrapper"
+        level={props.level}
+        onClick={() => {
+          setShowAns(!showAns);
+        }}
+      >
+        <p>
+          <b>{comment.user}</b> | {comment.time_ago}
+        </p>
+        <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}></div>
+        <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
+      </Wrapper>
+      {showAns &&
+        comment.comments.map((comm) => {
+          return <Comment key={comm.id} id={comm.id} level={props.level + 1} />;
+        })}
+    </>
+  );
 };
