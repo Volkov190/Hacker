@@ -23,7 +23,7 @@ interface NeedClassName {
   className: string;
 }
 
-const PieceOfNews = (props: PieceOfNewsMainInfo & NeedClassName) => {
+export const PieceOfNews = (props: PieceOfNewsMainInfo & NeedClassName) => {
   return (
     <Link
       to={`/news/${props.id}`}
@@ -39,5 +39,3 @@ const PieceOfNews = (props: PieceOfNewsMainInfo & NeedClassName) => {
     </Link>
   );
 };
-
-export { PieceOfNews };

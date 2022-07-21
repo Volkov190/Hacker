@@ -53,7 +53,7 @@ function getNewsPart(pageNum: number): AppThunk {
   };
 }
 
-function NewsPage() {
+export function NewsPage() {
   const dispatch = useAppDispatch();
   const newsCount = useAppSelector(selectNewsCount);
   const news = useAppSelector(selectNews);
@@ -101,5 +101,3 @@ function NewsPage() {
     </Wrapper>
   );
 }
-
-export { NewsPage };
