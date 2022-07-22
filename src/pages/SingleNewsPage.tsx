@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SingleNews } from '../components/SingleNews';
@@ -8,6 +7,7 @@ import { Comment } from '../components/Comment';
 import styled from 'styled-components';
 import { StyledUpdateButton } from '../components/UpdateButton';
 import { StyledGoNewsButton } from '../components/GoNewsButton';
+import { useGetNewsOrCommentByIdQuery } from '../services/news';
 
 const Wrapper = styled.div`
   width: 70%;
@@ -45,28 +45,18 @@ export const SingleNewsPage = () => {
   const [pieceOfNews, setPieceOfNews] = useState<NewsOrComment>();
   const { newsId } = useParams();
   const goNotFound = () => navigate('/notfound');
+
+  const { data, refetch, error } = useGetNewsOrCommentByIdQuery(parseInt(newsId!));
+
   useEffect(() => {
-    const id = parseInt(newsId!);
-    if (isNaN(id)) return goNotFound();
+    if (error || isNaN(parseInt(newsId!)) || data === null) goNotFound();
 
-    axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
-      if (resp.data !== null) {
-        setPieceOfNews(resp.data);
-      } else goNotFound();
-    });
-
-    const interval = setInterval(() => {
-      axios(`https://api.hnpwa.com/v0/item/${id}.json`).then((resp) => {
-        if (resp.data !== null) {
-          setPieceOfNews(resp.data);
-        } else goNotFound();
-      });
-    }, 60000);
-
+    setPieceOfNews(data);
+    const interval = setInterval(refetch, 60000);
     return () => {
       clearInterval(interval);
     };
-  }, [newsId]);
+  }, [data]);
 
   if (!pieceOfNews) return null;
 
@@ -89,11 +79,7 @@ export const SingleNewsPage = () => {
       })}
       <StyledUpdateButton
         onClick={() => {
-          axios(`https://api.hnpwa.com/v0/item/${newsId}.json`).then((resp) => {
-            if (resp.data !== null) {
-              setPieceOfNews(resp.data);
-            } else goNotFound();
-          });
+          refetch();
         }}
       />
       <StyledGoNewsButton />

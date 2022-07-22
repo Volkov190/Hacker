@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NewsOrComment from '../interfaces/NewsOrComment';
+import { useGetNewsOrCommentByIdQuery } from '../services/news';
 import { Frame } from './Frame';
 
 const Wrapper = styled(Frame)<{ level: number }>`
@@ -17,15 +17,10 @@ const Content = styled.div`
 export const Comment = (props: { commentId: number; commentLevel: number }) => {
   const [comment, setComment] = useState<NewsOrComment>();
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+  const { data, isLoading } = useGetNewsOrCommentByIdQuery(props.commentId);
   useEffect(() => {
-    axios(`https://api.hnpwa.com/v0/item/${props.commentId}.json`).then((resp) => {
-      if (resp.data) {
-        setComment(resp.data);
-      }
-    });
-  }, []);
-
-  if (!comment) return null;
+    if (!isLoading) setComment(data);
+  }, [data, isLoading]);
 
   return (
     <>
@@ -35,13 +30,22 @@ export const Comment = (props: { commentId: number; commentLevel: number }) => {
           setIsAnswerVisible(!isAnswerVisible);
         }}
       >
-        <p>
-          <b>{comment.user}</b> | {comment.time_ago}
-        </p>
-        <Content dangerouslySetInnerHTML={{ __html: comment.content }} />
-        <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
+        {!isLoading && typeof comment !== 'undefined' ? (
+          <>
+            <p>
+              <b>{comment.user}</b> | {comment.time_ago}
+            </p>
+            <Content dangerouslySetInnerHTML={{ __html: comment.content }} />
+            <div>
+              {comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}
+            </div>
+          </>
+        ) : (
+          'Loading...'
+        )}
       </Wrapper>
       {isAnswerVisible &&
+        comment &&
         comment.comments.map((answer) => {
           return (
             <Comment key={answer.id} commentId={answer.id} commentLevel={props.commentLevel + 1} />

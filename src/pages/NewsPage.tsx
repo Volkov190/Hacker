@@ -78,16 +78,18 @@ export function NewsPage() {
       <Title>
         <h1>News</h1>
       </Title>
-      {news.map((aPieceOfNews) => (
-        <StyledPieceOfNews
-          key={aPieceOfNews.id}
-          id={aPieceOfNews.id}
-          title={aPieceOfNews.title}
-          rating={aPieceOfNews.points}
-          nickname={aPieceOfNews.user}
-          date={aPieceOfNews.time}
-        />
-      ))}
+      {newsCount === 100
+        ? news.map((aPieceOfNews) => (
+            <StyledPieceOfNews
+              key={aPieceOfNews.id}
+              id={aPieceOfNews.id}
+              title={aPieceOfNews.title}
+              rating={aPieceOfNews.points}
+              nickname={aPieceOfNews.user}
+              date={aPieceOfNews.time}
+            />
+          ))
+        : 'Loading...'}
       <StyledUpdateButton
         onClick={() => {
           if (newsCount > 0) {
