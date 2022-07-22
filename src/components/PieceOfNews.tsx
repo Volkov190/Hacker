@@ -13,29 +13,28 @@ const Wrapper = styled(Frame)`
   @media (max-width: 850px) {
     font-size: 10pt;
   }
-
-  & .info {
-    color: #3d3d3d;
-  }
 `;
 
-interface NeedClassName {
-  className: string;
-}
+const Info = styled.div`
+  color: #3d3d3d;
+`;
 
-export const PieceOfNews = (props: PieceOfNewsMainInfo & NeedClassName) => {
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: block;
+`;
+
+const PieceOfNews = (props: PieceOfNewsMainInfo & { className?: string }) => {
   return (
-    <Link
-      to={`/news/${props.id}`}
-      style={{ textDecoration: 'none', display: 'block' }}
-      className={props.className}
-    >
+    <StyledLink to={`/news/${props.id}`} className={props.className}>
       <Wrapper>
         <h2>{props.title}</h2>
-        <div className="info">
+        <Info>
           {props.rating} points | {props.nickname} | {dateCalc(props.date)}
-        </div>
+        </Info>
       </Wrapper>
-    </Link>
+    </StyledLink>
   );
 };
+
+export const StyledPieceOfNews = styled(PieceOfNews)``;

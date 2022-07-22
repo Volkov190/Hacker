@@ -8,10 +8,10 @@ const Wrapper = styled(Frame)<{ level: number }>`
   margin-top: 40px;
   margin-left: ${(props) => props.level * 100}px;
   cursor: pointer;
+`;
 
-  & .content {
-    margin-left: 20px;
-  }
+const Content = styled.div`
+  margin-left: 20px;
 `;
 
 export const Comment = (props: { commentId: number; commentLevel: number }) => {
@@ -30,7 +30,6 @@ export const Comment = (props: { commentId: number; commentLevel: number }) => {
   return (
     <>
       <Wrapper
-        className="commentWrapper"
         level={props.commentLevel}
         onClick={() => {
           setIsAnswerVisible(!isAnswerVisible);
@@ -39,7 +38,7 @@ export const Comment = (props: { commentId: number; commentLevel: number }) => {
         <p>
           <b>{comment.user}</b> | {comment.time_ago}
         </p>
-        <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }} />
+        <Content dangerouslySetInnerHTML={{ __html: comment.content }} />
         <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
       </Wrapper>
       {isAnswerVisible &&

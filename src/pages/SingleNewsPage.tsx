@@ -6,22 +6,15 @@ import dateCalc from '../functions/dateCalc';
 import NewsOrComment from '../interfaces/NewsOrComment';
 import { Comment } from '../components/Comment';
 import styled from 'styled-components';
-import { UpdateButton } from '../components/UpdateButton';
-import { GoNewsButton } from '../components/GoNewsButton';
+import { StyledUpdateButton } from '../components/UpdateButton';
+import { StyledGoNewsButton } from '../components/GoNewsButton';
 
 const Wrapper = styled.div`
   width: 70%;
   margin-left: auto;
   margin-right: auto;
 
-  & .title {
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 0;
-    color: #576cd4;
-  }
-
-  & .updateBtn {
+  & ${StyledUpdateButton} {
     top: 35px;
     right: 50px;
 
@@ -30,7 +23,7 @@ const Wrapper = styled.div`
     }
   }
 
-  & .goNewsBtn {
+  & ${StyledGoNewsButton} {
     top: 35px;
     right: 125px;
 
@@ -38,6 +31,13 @@ const Wrapper = styled.div`
       left: 10px;
     }
   }
+`;
+
+const Title = styled.div`
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 0;
+  color: #576cd4;
 `;
 
 export const SingleNewsPage = () => {
@@ -75,11 +75,10 @@ export const SingleNewsPage = () => {
 
   return (
     <Wrapper>
-      <div className="title">
+      <Title>
         <h1>{pieceOfNews.title}</h1>
-      </div>
+      </Title>
       <SingleNews
-        className="singleNews"
         url={pieceOfNews.url}
         dateStr={dateStr}
         comments_count={pieceOfNews.comments_count}
@@ -88,8 +87,7 @@ export const SingleNewsPage = () => {
       {pieceOfNews.comments.map((comment) => {
         return <Comment key={comment.id} commentId={comment.id} commentLevel={0} />;
       })}
-      <UpdateButton
-        className="updateBtn"
+      <StyledUpdateButton
         onClick={() => {
           axios(`https://api.hnpwa.com/v0/item/${newsId}.json`).then((resp) => {
             if (resp.data !== null) {
@@ -98,7 +96,7 @@ export const SingleNewsPage = () => {
           });
         }}
       />
-      <GoNewsButton className="goNewsBtn" />
+      <StyledGoNewsButton />
     </Wrapper>
   );
 };

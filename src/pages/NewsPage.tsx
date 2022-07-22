@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { addNewsAction, deleteNewsAction, selectNews, selectNewsCount } from '../slices/newsSlice';
 import { AppThunk } from '../app/store';
-import { PieceOfNews } from '../components/PieceOfNews';
+import { StyledPieceOfNews } from '../components/PieceOfNews';
 import styled from 'styled-components';
-import { UpdateButton } from '../components/UpdateButton';
+import { StyledUpdateButton } from '../components/UpdateButton';
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -14,16 +14,7 @@ const Wrapper = styled.div`
     padding: 0;
   }
 
-  & .title {
-    width: 70%;
-    padding-left: 40px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    color: #576cd4;
-  }
-
-  & .pieceOfNews {
+  & ${StyledPieceOfNews} {
     margin-bottom: 40px;
     width: 70%;
     margin-left: auto;
@@ -35,14 +26,23 @@ const Wrapper = styled.div`
     }
   }
 
-  & .pieceOfNews:last-of-type {
+  & ${StyledPieceOfNews}:last-of-type {
     margin-bottom: 0;
   }
 
-  & .updateBtn {
+  & ${StyledUpdateButton} {
     right: 50px;
     top: 35px;
   }
+`;
+
+const Title = styled.div`
+  width: 70%;
+  padding-left: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  color: #576cd4;
 `;
 
 function getNewsPart(pageNum: number): AppThunk {
@@ -75,12 +75,11 @@ export function NewsPage() {
 
   return (
     <Wrapper>
-      <div className="title">
+      <Title>
         <h1>News</h1>
-      </div>
+      </Title>
       {news.map((aPieceOfNews) => (
-        <PieceOfNews
-          className={'pieceOfNews'}
+        <StyledPieceOfNews
           key={aPieceOfNews.id}
           id={aPieceOfNews.id}
           title={aPieceOfNews.title}
@@ -89,8 +88,7 @@ export function NewsPage() {
           date={aPieceOfNews.time}
         />
       ))}
-      <UpdateButton
-        className="updateBtn"
+      <StyledUpdateButton
         onClick={() => {
           if (newsCount > 0) {
             dispatch(deleteNewsAction());

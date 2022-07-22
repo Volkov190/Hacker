@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonFrame } from './ButtonFrame';
 import { ChevronLeft } from '../icons/ChevronLeft';
+import styled from 'styled-components';
 
-export const GoNewsButton = (props: { className?: string }) => {
+const GoNewsButton = (props: { className?: string }) => {
   return (
     <Link to="/news">
       <ButtonFrame className={props.className}>
@@ -12,3 +13,5 @@ export const GoNewsButton = (props: { className?: string }) => {
     </Link>
   );
 };
+
+export const StyledGoNewsButton = styled(GoNewsButton)``;

@@ -3,31 +3,23 @@ import styled from 'styled-components';
 import NewsOnSeparatePage from '../interfaces/NewsOnSeparatePage';
 import { Frame } from './Frame';
 
-const Wrapper = styled(Frame)`
-  & .title {
-    margin: 0;
-    color: #576cd4;
-    margin-bottom: 20px;
-  }
-
-  & .content {
-    margin-bottom: 10px;
-  }
-
-  & .time {
-    margin-top: 20px;
-  }
+const Content = styled.div`
+  margin-bottom: 10px;
 `;
 
-export const SingleNews = (props: NewsOnSeparatePage & { className?: string }) => {
+const Time = styled(Content)`
+  margin-top: 20px;
+`;
+
+export const SingleNews = (props: NewsOnSeparatePage) => {
   return (
-    <Wrapper>
+    <Frame>
       <a href={props.url}>{props.url}</a>
-      <div className="time content">{props.dateStr}</div>
-      <div className="content">
+      <Time>{props.dateStr}</Time>
+      <Content>
         Автор: <b>{props.author}</b>
-      </div>
-      <div className="content">Комментариев: {props.comments_count}</div>
-    </Wrapper>
+      </Content>
+      <Content>Комментариев: {props.comments_count}</Content>
+    </Frame>
   );
 };
