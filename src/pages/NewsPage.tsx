@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { addNewsAction, deleteNewsAction, selectNews, selectNewsCount } from '../slices/newsSlice';
-import { AppThunk } from '../app/store';
 import { StyledPieceOfNews } from '../components/PieceOfNews';
 import styled from 'styled-components';
 import { StyledUpdateButton } from '../components/UpdateButton';
+import { useGetNewestQuery } from '../services/news';
+import StoredNews from '../interfaces/StoredNews';
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -45,57 +43,40 @@ const Title = styled.div`
   color: #576cd4;
 `;
 
-function getNewsPart(pageNum: number): AppThunk {
-  return (dispatch) => {
-    axios.get('https://api.hnpwa.com/v0/newest/' + pageNum + '.json').then((resp) => {
-      dispatch(addNewsAction(resp.data));
-    });
-  };
-}
-
 export function NewsPage() {
-  const dispatch = useAppDispatch();
-  const newsCount = useAppSelector(selectNewsCount);
-  const news = useAppSelector(selectNews);
-  const [pageNum, setPageNum] = useState(1);
+  const [news, setNews] = useState<StoredNews[]>();
+
+  const { data, refetch } = useGetNewestQuery(100);
+
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-    if (newsCount < 100) {
-      dispatch(getNewsPart(pageNum));
-      setPageNum(pageNum + 1);
-    } else {
-      setPageNum(1);
-      timeout = setTimeout(() => {
-        dispatch(deleteNewsAction());
-      }, 60000);
-    }
+    setNews(data);
+  }, [data]);
+
+  useEffect(() => {
+    const timeout = setInterval(refetch, 60000);
 
     return () => clearInterval(timeout);
-  }, [newsCount]);
+  }, [refetch]);
+  if (typeof news === 'undefined') return null;
 
   return (
     <Wrapper>
       <Title>
         <h1>News</h1>
       </Title>
-      {newsCount === 100
-        ? news.map((aPieceOfNews) => (
-            <StyledPieceOfNews
-              key={aPieceOfNews.id}
-              id={aPieceOfNews.id}
-              title={aPieceOfNews.title}
-              rating={aPieceOfNews.points}
-              nickname={aPieceOfNews.user}
-              date={aPieceOfNews.time}
-            />
-          ))
-        : 'Loading...'}
+      {news.map((aPieceOfNews) => (
+        <StyledPieceOfNews
+          key={aPieceOfNews.id}
+          id={aPieceOfNews.id}
+          title={aPieceOfNews.title}
+          rating={aPieceOfNews.points}
+          nickname={aPieceOfNews.user}
+          date={aPieceOfNews.time}
+        />
+      ))}
       <StyledUpdateButton
         onClick={() => {
-          if (newsCount > 0) {
-            dispatch(deleteNewsAction());
-            setPageNum(1);
-          }
+          refetch();
         }}
       />
     </Wrapper>
