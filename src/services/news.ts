@@ -12,16 +12,14 @@ export const newsApi = createApi({
       },
     }),
     getNewest: builder.query<StoredNews[], number>({
-      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+      async queryFn(newsCount, _queryApi, _extraOptions, fetchWithBQ) {
         let pageNum = 1;
-        let newsCount = 0;
         let results: StoredNews[] = [];
-        while (newsCount < _arg) {
+        while (results.length < newsCount) {
           const resp = await fetchWithBQ(`newest/${pageNum}.json`);
-          const newsCountNeed = _arg - results.length;
+          const newsCountNeed = newsCount - results.length;
           const data = resp.data as StoredNews[];
           results = [...results, ...data.slice(0, newsCountNeed)];
-          newsCount = results.length;
           ++pageNum;
         }
 
