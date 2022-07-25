@@ -10,7 +10,7 @@ export const Frame = styled.div`
   &:hover {
     box-shadow: 6px 8px 18px 0px rgba(75, 97, 105, 0.62);
   }
-  & a {
+  a {
     color: #2590f5;
     text-decoration: none;
   }

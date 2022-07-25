@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  & ${StyledUpdateButton} {
+  ${StyledUpdateButton} {
     top: 35px;
     right: 50px;
 
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     }
   }
 
-  & ${StyledGoNewsButton} {
+  ${StyledGoNewsButton} {
     top: 35px;
     right: 125px;
 

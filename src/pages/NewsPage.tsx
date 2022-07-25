@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     padding: 0;
   }
 
-  & ${StyledPieceOfNews} {
+  ${StyledPieceOfNews} {
     margin-bottom: 40px;
     width: 70%;
     margin-left: auto;
@@ -23,11 +23,11 @@ const Wrapper = styled.div`
     }
   }
 
-  & ${StyledPieceOfNews}:last-of-type {
+  ${StyledPieceOfNews}:last-of-type {
     margin-bottom: 0;
   }
 
-  & ${StyledUpdateButton} {
+  ${StyledUpdateButton} {
     right: 50px;
     top: 35px;
   }
