@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SingleNews } from '../components/SingleNews';
 import dateCalc from '../functions/dateCalc';
-import NewsOrComment from '../interfaces/NewsOrComment';
 import { Comment } from '../components/Comment';
 import styled from 'styled-components';
 import { StyledUpdateButton } from '../components/UpdateButton';
@@ -42,19 +41,20 @@ const Title = styled.div`
 
 export const SingleNewsPage = () => {
   const navigate = useNavigate();
-  const [pieceOfNews, setPieceOfNews] = useState<NewsOrComment>();
   const { newsId } = useParams();
   const goNotFound = () => navigate('/notfound');
 
-  const { data, refetch, error } = useGetNewsOrCommentByIdQuery(parseInt(newsId!), {
+  const {
+    data: pieceOfNews,
+    refetch,
+    error,
+  } = useGetNewsOrCommentByIdQuery(parseInt(newsId!), {
     pollingInterval: 60000,
   });
 
   useEffect(() => {
-    if (error || isNaN(parseInt(newsId!)) || data === null) goNotFound();
-
-    setPieceOfNews(data);
-  }, [data]);
+    if (error || isNaN(parseInt(newsId!)) || pieceOfNews === null) goNotFound();
+  }, [pieceOfNews, newsId]);
 
   if (!pieceOfNews) return null;
 
