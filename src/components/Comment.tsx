@@ -37,7 +37,7 @@ export const Comment: FC<CommentProps> = (props) => {
           <b>{comment.user}</b> | {comment.time_ago}
         </p>
         <Content dangerouslySetInnerHTML={{ __html: comment.content }} />
-        <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
+        <div>{comment.comments_count > 0 && <p>Ответов: {comment.comments_count}</p>}</div>
       </Wrapper>
       {isAnswerVisible &&
         comment &&
