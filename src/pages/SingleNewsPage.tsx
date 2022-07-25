@@ -60,8 +60,7 @@ export const SingleNewsPage = () => {
 
   if (!pieceOfNews) return null;
 
-  let dateStr = '';
-  dateStr = dateCalc(pieceOfNews?.time);
+  const dateStr = dateCalc(pieceOfNews?.time);
 
   return (
     <Wrapper>
