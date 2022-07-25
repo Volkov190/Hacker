@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ButtonFrame } from './ButtonFrame';
-import { UpdateSVG } from '../icons/UpdateSVG';
+import { ReactComponent as UpdateSVG } from '../icons/UpdateSVG.svg';
 import styled from 'styled-components';
 
 interface UpdateByuttonProps {
