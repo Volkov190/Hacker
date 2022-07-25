@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import PieceOfNewsMainInfo from '../interfaces/PieceOfNewsMainInfo';
 import styled from 'styled-components';
@@ -24,7 +24,7 @@ const StyledLink = styled(Link)`
   display: block;
 `;
 
-const PieceOfNews = (props: PieceOfNewsMainInfo & { className?: string }) => {
+const PieceOfNews: FC<PieceOfNewsMainInfo & { className?: string }> = (props) => {
   return (
     <StyledLink to={`/news/${props.id}`} className={props.className}>
       <Wrapper>

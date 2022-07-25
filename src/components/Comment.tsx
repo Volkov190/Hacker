@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NewsOrComment from '../interfaces/NewsOrComment';
 import { useGetNewsOrCommentByIdQuery } from '../services/news';
@@ -14,7 +14,12 @@ const Content = styled.div`
   margin-left: 20px;
 `;
 
-export const Comment = (props: { commentId: number; commentLevel: number }) => {
+interface CommentProps {
+  commentId: number;
+  commentLevel: number;
+}
+
+export const Comment: FC<CommentProps> = (props) => {
   const [comment, setComment] = useState<NewsOrComment>();
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const { data, isLoading } = useGetNewsOrCommentByIdQuery(props.commentId);

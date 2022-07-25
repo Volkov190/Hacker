@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonFrame } from './ButtonFrame';
 import { ChevronLeft } from '../icons/ChevronLeft';
 import styled from 'styled-components';
 
-const GoNewsButton = (props: { className?: string }) => {
+const GoNewsButton: FC<{ className?: string }> = (props) => {
   return (
     <Link to="/news">
       <ButtonFrame className={props.className}>

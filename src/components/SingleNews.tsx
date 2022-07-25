@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import NewsOnSeparatePage from '../interfaces/NewsOnSeparatePage';
 import { Frame } from './Frame';
@@ -11,7 +11,7 @@ const Time = styled(Content)`
   margin-top: 20px;
 `;
 
-export const SingleNews = (props: NewsOnSeparatePage) => {
+export const SingleNews: FC<NewsOnSeparatePage> = (props) => {
   return (
     <Frame>
       <a href={props.url}>{props.url}</a>
