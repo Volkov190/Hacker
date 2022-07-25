@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyledPieceOfNews } from '../components/PieceOfNews';
 import styled from 'styled-components';
 import { StyledUpdateButton } from '../components/UpdateButton';
@@ -43,13 +43,8 @@ const Title = styled.div`
 `;
 
 export function NewsPage() {
-  const { data: news, refetch } = useGetNewestQuery(100);
+  const { data: news, refetch } = useGetNewestQuery(100, { pollingInterval: 60000 });
 
-  useEffect(() => {
-    const timeout = setInterval(refetch, 60000);
-
-    return () => clearInterval(timeout);
-  }, [refetch]);
   if (typeof news === 'undefined') return null;
 
   return (

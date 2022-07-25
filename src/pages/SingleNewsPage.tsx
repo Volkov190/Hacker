@@ -46,16 +46,14 @@ export const SingleNewsPage = () => {
   const { newsId } = useParams();
   const goNotFound = () => navigate('/notfound');
 
-  const { data, refetch, error } = useGetNewsOrCommentByIdQuery(parseInt(newsId!));
+  const { data, refetch, error } = useGetNewsOrCommentByIdQuery(parseInt(newsId!), {
+    pollingInterval: 60000,
+  });
 
   useEffect(() => {
     if (error || isNaN(parseInt(newsId!)) || data === null) goNotFound();
 
     setPieceOfNews(data);
-    const interval = setInterval(refetch, 60000);
-    return () => {
-      clearInterval(interval);
-    };
   }, [data]);
 
   if (!pieceOfNews) return null;
