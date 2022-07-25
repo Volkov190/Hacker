@@ -22,6 +22,9 @@ export const Comment: FC<CommentProps> = (props) => {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const { data: comment, isLoading } = useGetNewsOrCommentByIdQuery(props.commentId);
 
+  if (isLoading || typeof comment === 'undefined')
+    return <Wrapper level={props.commentLevel}>Loading...</Wrapper>;
+
   return (
     <>
       <Wrapper
@@ -30,19 +33,11 @@ export const Comment: FC<CommentProps> = (props) => {
           setIsAnswerVisible(!isAnswerVisible);
         }}
       >
-        {!isLoading && typeof comment !== 'undefined' ? (
-          <>
-            <p>
-              <b>{comment.user}</b> | {comment.time_ago}
-            </p>
-            <Content dangerouslySetInnerHTML={{ __html: comment.content }} />
-            <div>
-              {comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}
-            </div>
-          </>
-        ) : (
-          'Loading...'
-        )}
+        <p>
+          <b>{comment.user}</b> | {comment.time_ago}
+        </p>
+        <Content dangerouslySetInnerHTML={{ __html: comment.content }} />
+        <div>{comment.comments_count > 0 ? <p>Ответов: {comment.comments_count}</p> : null}</div>
       </Wrapper>
       {isAnswerVisible &&
         comment &&
