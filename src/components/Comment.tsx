@@ -1,6 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import NewsOrComment from '../interfaces/NewsOrComment';
 import { useGetNewsOrCommentByIdQuery } from '../services/news';
 import { Frame } from './Frame';
 
@@ -20,12 +19,8 @@ interface CommentProps {
 }
 
 export const Comment: FC<CommentProps> = (props) => {
-  const [comment, setComment] = useState<NewsOrComment>();
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
-  const { data, isLoading } = useGetNewsOrCommentByIdQuery(props.commentId);
-  useEffect(() => {
-    if (!isLoading) setComment(data);
-  }, [data, isLoading]);
+  const { data: comment, isLoading } = useGetNewsOrCommentByIdQuery(props.commentId);
 
   return (
     <>

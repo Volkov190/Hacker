@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyledPieceOfNews } from '../components/PieceOfNews';
 import styled from 'styled-components';
 import { StyledUpdateButton } from '../components/UpdateButton';
 import { useGetNewestQuery } from '../services/news';
-import StoredNews from '../interfaces/StoredNews';
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -44,13 +43,7 @@ const Title = styled.div`
 `;
 
 export function NewsPage() {
-  const [news, setNews] = useState<StoredNews[]>();
-
-  const { data, refetch } = useGetNewestQuery(100);
-
-  useEffect(() => {
-    setNews(data);
-  }, [data]);
+  const { data: news, refetch } = useGetNewestQuery(100);
 
   useEffect(() => {
     const timeout = setInterval(refetch, 60000);
